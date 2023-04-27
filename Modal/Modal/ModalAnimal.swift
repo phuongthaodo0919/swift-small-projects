@@ -30,11 +30,13 @@ struct ModalAnimal: View {
                     Text(animals[i])
                     Text("Animal at \(i)")
                 }.onTapGesture {
-                    self.chooseObj = animals[i]
                     self.isPresent.toggle()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                        self.chooseObj = animals[i]
+                    }
                 }
             }
-        }.sheet(isPresented: $isPresent) {
+        }.sheet(isPresented: $isPresent) {            
             AnimalDetails(animal: chooseObj, country: $countryEntered, isPresent: $isPresent)
         }
     }
